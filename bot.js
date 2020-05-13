@@ -21,9 +21,9 @@ module.exports = class bot{
     }
 
     static ask(){
-        readLine.question('Votre message : ' , (message) => {
-            reply = bot.reply('local-user', message).then(function(reply) {
-                console.log(Chalk.red("Bot : " + reply));
+        this.readLine.question('Votre message : ' , (message) => {
+            reply = this.Bot.reply('local-user', message).then(function(reply) {
+                console.log(this.Chalk.red("Bot : " + reply));
             });
         })
     }
