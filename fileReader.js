@@ -1,4 +1,4 @@
-const fs = require('fs');
+const Fs = require('fs');
 
 function textFromPath(file)
 {
