@@ -15,11 +15,11 @@ module.exports = class bot{
             console.log(this.Chalk.green("Succès de la lecture"));
             this.Bot.sortReplies();
         }, function(error) {
-            console.log("Erreur lors de la lecture du fichier : "+error);
+            console.log("Erreur lors de la lecture du fichier : "+ error);
         });
     }
 
-    static ask(){
+    ask(){
         this.readLine.question('Votre message : ' , (message) => {
             reply = this.Bot.reply('local-user', message).then(function(reply) {
                 console.log(this.Chalk.red("Bot : " + reply));
