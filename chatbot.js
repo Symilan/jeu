@@ -10,7 +10,7 @@ const readLine = ReadLine.createInterface({
     output : process.stdout
 })
 
-bot.loadFile('./brain.rive', function() {
+bot.loadFile('.bots/brain.rive', function() {
     console.log(Chalk.green("Succès de la lecture"));
     bot.sortReplies();
     ask();
