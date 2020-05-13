@@ -12,9 +12,8 @@ module.exports = class bot{
         })
 
         this.Bot.loadFile(code, function() {
-            console.log(Chalk.green("Succès de la lecture"));
-            bot.sortReplies();
-            ask();
+            console.log(this.Chalk.green("Succès de la lecture"));
+            this.Bot.sortReplies();
         }, function(error) {
             console.log("Erreur lors de la lecture du fichier : "+error);
         });
