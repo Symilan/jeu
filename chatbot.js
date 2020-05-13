@@ -10,7 +10,7 @@ const readLine = ReadLine.createInterface({
     output : process.stdout
 })
 
-bot.loadFile('./training_data.rive', function() {
+bot.loadFile('./brain.rive', function() {
     console.log(Chalk.green("Succès de la lecture"));
     bot.sortReplies();
     ask();
@@ -22,6 +22,7 @@ function ask() {
     readLine.question('Votre message : ' , (message) => {
         reply = bot.reply('local-user', message).then(function(reply) {
             console.log(Chalk.red("Bot : " + reply));
+            ask();
         });
     })
 }
