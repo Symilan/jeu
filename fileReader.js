@@ -1,4 +1,5 @@
-const Fs = require('fs');
+const fs = require('fs');
+const Database = require('./database.js');
 
 function textFromPath(file)
 {
