@@ -1,6 +1,6 @@
 module.exports = class Bot{
     
-    constructor(name, code){
+    constructor(name, brain){
 
         this.name = name;
         this.ReadLine = require('readline');
@@ -12,7 +12,7 @@ module.exports = class Bot{
             output : process.stdout
         })
 
-        this.Bot.loadFile(code, function() {
+        this.Bot.loadFile(brain, function() {
             console.log("Succès de la lecture"); 
         }, function(error) {
             console.log("Erreur lors de la lecture du fichier : "+ error);
