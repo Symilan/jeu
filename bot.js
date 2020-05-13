@@ -1,29 +1,22 @@
-module.exports = class bot{
+module.exports = class Bot{
     
     constructor(name, code){
 
+        this.name = name;
         this.ReadLine = require('readline');
         this.RiveScript = require('rivescript');
         this.Chalk = require('chalk');
-        this.Bot = new RiveScript();
-        this.readLine = ReadLine.createInterface({
+        this.Bot = new this.RiveScript();
+        this.readLine = this.ReadLine.createInterface({
             input : process.stdin,
             output : process.stdout
         })
 
         this.Bot.loadFile(code, function() {
-            console.log(this.Chalk.green("Succès de la lecture"));
-            this.Bot.sortReplies();
+            console.log("Succès de la lecture"); 
         }, function(error) {
             console.log("Erreur lors de la lecture du fichier : "+ error);
         });
-    }
-
-    ask(){
-        this.readLine.question('Votre message : ' , (message) => {
-            reply = this.Bot.reply('local-user', message).then(function(reply) {
-                console.log(this.Chalk.red("Bot : " + reply));
-            });
-        })
+        this.Bot.sortReplies();
     }
 }
