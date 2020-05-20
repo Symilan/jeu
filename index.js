@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const Bot = require('./bot');
+const Database = require('./database');
 
 //let bot = new Bot('test','./brain.rive');
 

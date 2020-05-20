@@ -14,4 +14,5 @@ module.exports = class Database {
     static getBot(name) {
         console.log(db.get('bots').find({name : name}).value());
     }
+    
 }
