@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const Bot = require('./bot');
-const Database = require('./database')
+const Database = require('./database');
 
 app.get('/bots/',function(req,res){
     let id = req.query.id;
