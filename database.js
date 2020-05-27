@@ -7,12 +7,10 @@ const db = low(adapter);
 db.defaults({ bots : [] }).write();
 
 module.exports = class Database {
-    static addBot(name, brain) {
-        db.get('bots').push({name : name, brain : brain}).write();
+    static addBot(bot) {
+        db.get('bots').push(bot).write();
     }
-
-    static getBot(name) {
-        console.log(db.get('bots').find({name : name}).value());
+    static getBot(id) {
+        return db.get('bots').find({id : id}).value();
     }
-    
 }

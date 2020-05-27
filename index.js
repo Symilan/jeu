@@ -7,12 +7,11 @@ app.get('/bots/',function(req,res){
     let id = req.query.id;
     if (id != undefined)
     {
-        let botData = Database.getBot(id);
-        if (botData != undefined)
+        let botAsked = Database.getBot(id);
+        if (botAsked != undefined)
         {
-            let brain = botData.brain;
-            console.log(brain);
-            res.download('bots/brain.rive','brain.rive');
+            res.json(bot);
+            res.send();
             console.log('Fichier envoyé');
         }
         else
@@ -26,7 +25,10 @@ app.get('/bots/',function(req,res){
     }
 });
 
+app.post('/bots',function(req,res){
+    let botSent
+});
+
 app.listen(8080,function(){
     console.log('Ca tourne.');
 });
-
