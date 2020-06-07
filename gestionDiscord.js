@@ -23,12 +23,12 @@ module.exports = class gestionnaireDiscord{
     static addBot(id, brain, channel){
         /*Cette fonction ajoute un bot au serveur avec un nom et une personnalité / un cerveau donnés en argument
         et lui indique sur quel channel du serveur parler.*/
-        this.bot.addChatBot(id, brain, channel)
-        .then(console.log("Bot ajouté sur le serveur au channel " + channel));
+        this.worker.postMessage([id, brain, channel]);
+        console.log("j'ai ajouté le bot!");
     }
 
     static lauchBot(){
-        let worker = new Worker('./discordWorker.js');
+        this.worker = new Worker('./discordWorker.js');
     }
 }
 
