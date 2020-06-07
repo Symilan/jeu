@@ -1,4 +1,7 @@
 const BotDiscord = require("./botdiscord")
+const {
+    Worker, MessageChannel, MessagePort, isMainThread, parentPort
+  } = require('worker_threads');
 const invitetoserv = "https://discord.com/api/oauth2/authorize?client_id=715180721794187286&permissions=1812462657&scope=bot"
 
 
@@ -14,11 +17,18 @@ module.exports = class gestionnaireDiscord{
         /*Cette procédure connecte le bot. Elle le "met en marche" pour qu'il puisse commencer à intéragir avec les utilisateurs.*/
         this.inviteBotToServ();
         this.bot = new BotDiscord();
+        console.log("bon, jusquici pas de soucis");
     }
 
-    static addBot(name, brain, channel){
+    static addBot(id, brain, channel){
         /*Cette fonction ajoute un bot au serveur avec un nom et une personnalité / un cerveau donnés en argument
         et lui indique sur quel channel du serveur parler.*/
-        
+        this.bot.addChatBot(id, brain, channel)
+        .then(console.log("Bot ajouté sur le serveur au channel " + channel));
+    }
+
+    static lauchBot(){
+        let worker = new Worker('./discordWorker.js');
     }
 }
+
