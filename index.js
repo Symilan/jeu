@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express();
+const fs = require('fs');
 const Bot = require('./bot');
 const Database = require('./database');
 const gestionnaire = require('./gestionDiscord');
@@ -91,6 +92,7 @@ app.delete('/bots', function(req,res){
 
 app.listen(8080,function(){
     console.log('Ca tourne.');
-    gestionnaire.connect();
-    gestionnaire.lauchBot();
+    let bot = Bot.getBotFromDB(1);
+    bot.start();
+    bot.ask("Hi");
 });
