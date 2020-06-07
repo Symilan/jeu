@@ -93,4 +93,5 @@ app.listen(8080,function(){
     console.log('Ca tourne.');
     gestionnaire.connect();
     gestionnaire.lauchBot();
+    gestionnaire.addBot(0, 'ma bite', "0125964");
 });
