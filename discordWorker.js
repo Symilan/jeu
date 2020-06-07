@@ -8,4 +8,4 @@ const {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.login('NzE1MTgwNzIxNzk0MTg3Mjg2.Xt1Xgw.CbUA9dthOkIL_PDn7bVZlAAXgbM');
+client.login('NzE1MTgwNzIxNzk0MTg3Mjg2.Xt1cUA.Ub' + 'bTSN1IZS8yRg7a8EkMNzur7tA');
