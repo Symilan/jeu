@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const Bot = require('./bot');
 const Database = require('./database');
+const gestionnaire = require('./gestionDiscord');
 var bodyParser = require('body-parser');
 var urlencodedparser = bodyParser.urlencoded({ extended: false });
 
@@ -34,4 +35,6 @@ app.post('/bots', urlencodedparser, function(req,res){
 
 app.listen(8080,function(){
     console.log('Ca tourne.');
+    gestionnaire.connect();
+    gestionnaire.lauchBot();
 });
