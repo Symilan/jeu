@@ -4,7 +4,7 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
-db.defaults({ bots : [] }).write();
+db.defaults({ bots : [] , currentId : 0}).write();
 
 module.exports = class Database {
     static addBot(bot) {
@@ -12,5 +12,23 @@ module.exports = class Database {
     }
     static getBot(id) {
         return db.get('bots').find({id : id}).value();
+    }
+    static getCurrentId() {
+        return db.get('currentId').value();
+    }
+    static incrCurrentId() {
+        let currentId = Database.getCurrentId();
+        db.set('currentId', currentId + 1).write();
+    }
+    static updateBot(botId, newBrain)
+    {
+        db.get('bots')
+            .find({ id: botId })
+            .assign({ brain: newBrain})
+            .write();
+    }
+    static removeBot(botId)
+    {
+        db.get('bots').remove({ id: botId }).write();
     }
 }
