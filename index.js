@@ -2,21 +2,23 @@ const express = require('express')
 const app = express();
 const Bot = require('./bot');
 const Database = require('./database');
+var bodyParser = require('body-parser');
+var urlencodedparser = bodyParser.urlencoded({ extended: false });
 
 app.get('/bots/',function(req,res){
     let id = req.query.id;
     if (id != undefined)
     {
+        id = parseInt(id);
         let botAsked = Database.getBot(id);
         if (botAsked != undefined)
         {
-            res.json(bot);
-            res.send();
+            res.send(botAsked);
             console.log('Fichier envoyé');
         }
         else
         {
-            console.log("Le bot "+id+" n'existe pas");
+            console.log("Le bot " + parseInt(id) + " n'existe pas");
         }
     }
     else
@@ -25,8 +27,9 @@ app.get('/bots/',function(req,res){
     }
 });
 
-app.post('/bots',function(req,res){
-    let botSent
+app.post('/bots', urlencodedparser, function(req,res){
+    let sentBody = req.body;
+    console.log(sentBody);
 });
 
 app.listen(8080,function(){
