@@ -16,9 +16,9 @@ module.exports = class gestionnaireDiscord{
         this.bot = new BotDiscord();
     }
 
-    static addBot(name, brain, channel){
+    static addBot(id, brain, channel){
         /*Cette fonction ajoute un bot au serveur avec un nom et une personnalité / un cerveau donnés en argument
         et lui indique sur quel channel du serveur parler.*/
-        
+
     }
 }
