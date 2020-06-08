@@ -20,15 +20,26 @@ module.exports = class Database {
         let currentId = Database.getCurrentId();
         db.set('currentId', currentId + 1).write();
     }
-    static updateBot(botId, newBrain)
+    static updateBotBrain(botId, newBrain)
     {
         db.get('bots')
             .find({ id: botId })
             .assign({ brain: newBrain})
             .write();
     }
+    static updateBotChannel(botId, newChannel)
+    {
+        db.get('bots')
+            .find({ id: botId })
+            .assign({ channel: newChannel})
+            .write();
+    }
     static removeBot(botId)
     {
         db.get('bots').remove({ id: botId }).write();
+    }
+    static getAllBots()
+    {
+        return db.get('bots').value();
     }
 }

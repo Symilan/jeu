@@ -36,6 +36,7 @@ app.get('/bots/',function(req,res){
 
 app.post('/bots', function(req,res){
     let receivedBrain = req.body.brain;
+    let receivedChannel = req.body.channel;
     if (receivedBrain != undefined)
     {
         let newBot = new Bot(Database.getCurrentId(), receivedBrain, '');
@@ -46,17 +47,29 @@ app.post('/bots', function(req,res){
     {
         console.log("Le body de la requete doit contenir un élément 'brain'.");
     }
+    if (receivedChannel != undefined)
+    {
+        Database.updateBotChannel(Database.getCurrentId-1, receivedChannel);
+    }
 });
 
 app.put('/bots', function(req,res){
     let receivedId = req.body.id;
     let receivedBrain = req.body.brain;
-    if (receivedBrain != undefined && receivedId != undefined)
+    let receivedChannel = req.body.channel;
+    if (receivedId != undefined)
     {
         receivedId = parseInt(receivedId);
         if (Database.getBot(receivedId) != undefined)
         {
-            Database.updateBot(receivedId, receivedBrain);
+            if (receivedBrain != undefined)
+            {
+                Database.updateBotBrain(receivedId, receivedBrain);
+            }
+            if (receivedChannel != undefined)
+            {
+                Database.updateBotChannel(receivedId, receivedChannel);
+            }
         }
         else
         {
@@ -65,7 +78,7 @@ app.put('/bots', function(req,res){
     }
     else
     {
-        console.log("Le body de la requête doit contenir  un élément 'id' et un élément 'brain'.");
+        console.log("Le body de la requête doit contenir  un élément 'id'.");
     }
 })
 
@@ -92,12 +105,13 @@ app.delete('/bots', function(req,res){
 
 app.listen(8080,function(){
     console.log('Ca tourne.');
-    let bot = Bot.getBotFromDB(0);
+    let bot = Bot.getBotFromDB(1);
     bot.start();
     let  promisedAnswer = bot.ask("Hi");
     promisedAnswer.then(function(answer){console.log(answer)});
     promisedAnswer = bot.ask("Bite");
     promisedAnswer.then(function(answer){console.log(answer)});
+    console.log(Database.getAllBots());
 });
 
 function sleep(ms) {
