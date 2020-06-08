@@ -1,0 +1,33 @@
+Le serveur est paramétré pour réagir aux requêtes http suivantes : get, post, put et delete.
+
+Pour simuler ces requêtes, il est possible d'utiliser le logiciel postman par exemple (resteMan ne fonctionne plus),
+en sélectionnant la méthode qu'on souhaite utiliser et en ajoutant les données au body sous forme d'un formulaire.
+Il est important de sélectionner x-www-form-urlencoded depuis postman dans le body pour pouvoir envoyer les informations.
+
+Les méthodes fonctionnent de la manière suivante :
+
+get() :
+Cette requête doit avoir un paramètre "id" qui est un entier.
+Renvoie au client un objet Bot au format JSON. Cet objet bot correspond à celui ayant l'id donné en paramètre. Dans cet objet bot, on trouve les champs suivants : 
+- "id" : l'id du bot
+- "brain" : le cerveau du bot sous la forme d'un String
+- "channel" : le token du channel Discord sur lequel on peut communiquer avec ce bot
+- "chatBot" : non instancié qui ne sert que du côté serveur
+
+post() :
+Cette requête doit/peut avoir les champs suivant dans son body :
+- "brain" : le cerveau du bot qu'on veut créer sous forme d'un String
+- "channel" : (facultatif) le token du serveur Discord sur lequel on veut que le bot soit présent.
+Elle crée le bot dans la dataBase, il sera donc actif lors du prochain démarrage du serveur.
+
+put() :
+Cette requête doit/peut avoir les champs suivant dans son body :
+- "id" : l'id du bot que l'on souhaite modifier
+- "brain" : (facultatif) le brain qu'on veut assigner au bot sous la forme d'un String
+- "channel" : (facultatif) le channel que l'on souhaite assigner au Bot
+Elle modifie le bot dans la dataBase, les modifications seront prises en compte au prochain démarrage du serveur.
+
+delete() :
+Cette requête doit avoir le champ suivant dans son body : 
+- "id" : l'id du bot que l'on souhaite supprimer.
+Elle supprime le bot de la dataBase, le bot ne sera plus actif au prochain démarrage du serveur.

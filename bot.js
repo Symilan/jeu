@@ -9,6 +9,7 @@ module.exports = class Bot{
         this.brain = brain;
         this.channel = channel;
         this.chatBot = "";
+        this.filename = 'brainfile' + id + '.rive' 
     }
 
     static getBotFromDB(id)
@@ -23,15 +24,17 @@ module.exports = class Bot{
         this.brain = FileReader.textFromPath(brain);
     }
 
-    async start()
+    start()
     {
         this.chatBot = new RiveScript();
-        fs.writeFile('uselessFile.rive', this.brain, function (err) {
-            if (err) return console.log(err);
-        });
-        let transmitionDeThisALInterieurDeLaFonctionLoadFileQuiArriveJusteApres = this;
+        fs.appendFile(this.filename, this.brain, function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+          });
+        fs.writeFileSync('uselessFile.rive', this.brain);
+        let transmissionDeThisALInterieurDeLaFonctionLoadFileQuiArriveJusteApres = this;
         this.chatBot.loadFile('uselessFile.rive').then(function(){
-                transmitionDeThisALInterieurDeLaFonctionLoadFileQuiArriveJusteApres.chatBot.sortReplies();
+                transmissionDeThisALInterieurDeLaFonctionLoadFileQuiArriveJusteApres.chatBot.sortReplies();
             }).catch(function(error)
             {
                 console.log("Erreur lors de l'ouverture du brain : " + error);

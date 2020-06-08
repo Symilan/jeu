@@ -16,15 +16,29 @@ module.exports = class gestionnaireDiscord{
     static connect(){
         /*Cette procédure connecte le bot. Elle le "met en marche" pour qu'il puisse commencer à intéragir avec les utilisateurs.*/
         this.inviteBotToServ();
-        this.bot = new BotDiscord();
-        console.log("bon, jusquici pas de soucis");
+        this.lauchBot();
     }
 
     static addBot(id, brain, channel){
         /*Cette fonction ajoute un bot au serveur avec un nom et une personnalité / un cerveau donnés en argument
         et lui indique sur quel channel du serveur parler.*/
-        this.worker.postMessage([id, brain, channel]);
+        this.worker.postMessage([id, brain, channel, "add"]);
         console.log("j'ai ajouté le bot!");
+    }
+
+    static delBot(id){
+        this.worker.postMessage([id, "", "", "del"]);
+        console.log("j'ai supprimé le bot!");
+    }
+
+    static putBotBrain(id, brain){
+        this.worker.postMessage([id, brain, "", "putBrain"]);
+        console.log("j'ai modifié le cerveau du bot!");
+    }
+
+    static putBotChannel(id, channel){
+        this.worker.postMessage([id, "", channel, "putChannel"]);
+        console.log("j'ai modifié le channel du bot!");
     }
 
     static lauchBot(){

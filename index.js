@@ -40,6 +40,9 @@ app.post('/bots', function(req,res){
     if (receivedBrain != undefined)
     {
         let newBot = new Bot(Database.getCurrentId(), receivedBrain, '');
+
+        gestionnaire.addBot(Database.getCurrentId(), receivedBrain, receivedChannel);
+
         Database.incrCurrentId();
         Database.addBot(newBot);
     }
@@ -65,10 +68,12 @@ app.put('/bots', function(req,res){
             if (receivedBrain != undefined)
             {
                 Database.updateBotBrain(receivedId, receivedBrain);
+                gestionnaire.putBotBrain(receivedId, receivedBrain);
             }
             if (receivedChannel != undefined)
             {
                 Database.updateBotChannel(receivedId, receivedChannel);
+                gestionnaire.putBotChannel(receivedId, receivedChannel);
             }
         }
         else
@@ -91,6 +96,8 @@ app.delete('/bots', function(req,res){
         {
             receivedId = parseInt(receivedId);
             Database.removeBot(receivedId);
+
+            gestionnaire.delBot(receivedId);
         }
         else 
         {
@@ -105,13 +112,11 @@ app.delete('/bots', function(req,res){
 
 app.listen(8080,function(){
     console.log('Ca tourne.');
-    let bot = Bot.getBotFromDB(1);
-    bot.start();
-    let  promisedAnswer = bot.ask("Hi");
-    promisedAnswer.then(function(answer){console.log(answer)});
-    promisedAnswer = bot.ask("Bite");
-    promisedAnswer.then(function(answer){console.log(answer)});
-    console.log(Database.getAllBots());
+    gestionnaire.connect();
+    let listebot = Database.getAllBots();
+    for(let i = 0; i < listebot.length; i++){
+       gestionnaire.addBot(listebot[i].id, listebot[i].brain, listebot[i].channel);
+   }
 });
 
 function sleep(ms) {
