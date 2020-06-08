@@ -17,7 +17,7 @@ app.get('/bots/',function(req,res){
     if (id != undefined)
     {
         id = parseInt(id);
-        let botAsked = Database.getBot(id);
+        let botAsked = Bot.getBotFromDB(id);
         if (botAsked != undefined)
         {
             res.send(botAsked);
@@ -92,7 +92,14 @@ app.delete('/bots', function(req,res){
 
 app.listen(8080,function(){
     console.log('Ca tourne.');
-    let bot = Bot.getBotFromDB(1);
+    let bot = Bot.getBotFromDB(0);
     bot.start();
-    bot.ask("Hi");
+    let  promisedAnswer = bot.ask("Hi");
+    promisedAnswer.then(function(answer){console.log(answer)});
+    promisedAnswer = bot.ask("Bite");
+    promisedAnswer.then(function(answer){console.log(answer)});
 });
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }

@@ -42,11 +42,8 @@ module.exports = class Bot{
     async ask(question)
     {
         await sleep(100);
-        let reply = this.chatBot.reply('local-user', question).then(function(reply){
-            console.log("reply inside : "+reply);
-        });
-        await sleep(1000);
-        console.log("reply outside : "+reply);
+        let reply = this.chatBot.reply('local-user', question);
+        return reply;
     }
 }
 
