@@ -31,5 +31,6 @@ client.on("message", (message) => {
             answer = bots[i].ask(message.content);
         }
     }
-    if(answer != ''){message.channel.send(answer);}
+    answer.then(function(reply){if(reply != ''){message.channel.send(reply);}})
+    
 })
